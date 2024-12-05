@@ -13,7 +13,7 @@ Key features:
 
 Here is a demo showing the app in action:
 
-![App Demo](https://i.imgur.com/uYvwqbl.gif)
+![App Demo](https://imgur.com/a/uYvwqbl)
 
 ## MVC Architecture Explanation
 
