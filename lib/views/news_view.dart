@@ -1,11 +1,9 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
 import '../controllers/news_controller.dart';
 import '../models/news.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class NewsView extends StatefulWidget {
   const NewsView({super.key});
@@ -28,7 +26,7 @@ class NewsViewState extends State<NewsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('News App (MVC)'),
+        title: const Text('News App'),
       ),
       body: FutureBuilder<List<News>>(
         future: _newsList,
