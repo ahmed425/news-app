@@ -9,11 +9,12 @@ Key features:
 - Displays news details, including title, description, and images.
 - Opens the full article in an in-app browser when a news item is tapped.
 
-### App Demo
+## App Demo
 
 Here is a demo showing the app in action:
 
-![App Demo](https://imgur.com/a/uYvwqbl)
+![App Demo](https://raw.githubusercontent.com/ahmed425/news-app/refs/heads/main/news_app.gif)
+
 
 ## MVC Architecture Explanation
 
