@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../controllers/news_controller.dart';
 import '../models/news.dart';
-
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class NewsView extends StatefulWidget {
   const NewsView({super.key});
@@ -45,10 +48,12 @@ class NewsViewState extends State<NewsView> {
                 return Card(
                   child: ListTile(
                     leading: news.urlToImage.isNotEmpty
-                        ? Image.network(news.urlToImage, width: 100, fit: BoxFit.cover)
+                        ? Image.network(news.urlToImage,
+                            width: 100, fit: BoxFit.cover)
                         : const Icon(Icons.image),
                     title: Text(news.title),
-                    subtitle: Text(news.description, maxLines: 2, overflow: TextOverflow.ellipsis),
+                    subtitle: Text(news.description,
+                        maxLines: 2, overflow: TextOverflow.ellipsis),
                     onTap: () {
                       _openNewsUrl(news.url);
                     },
@@ -62,11 +67,34 @@ class NewsViewState extends State<NewsView> {
     );
   }
 
-  void _openNewsUrl(String url) {
-    // Placeholder function to open URL
-    // Use `url_launcher` package if needed
+void _openNewsUrl(String url) async {
+  final Uri uri = Uri.parse(url);
+
+  // Ensure the URL is valid
+  if (!uri.isAbsolute) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Opening: $url')),
+      SnackBar(content: Text('Invalid URL: $url')),
+    );
+    return;
+  }
+
+  try {
+    // Open the URL in an in-app browser
+    final bool launched = await launchUrl(
+      uri,
+      mode: LaunchMode.inAppWebView,
+      webViewConfiguration: const WebViewConfiguration(
+        enableJavaScript: true, // Enable JavaScript
+      ),
+    );
+
+    if (!launched) {
+      throw Exception('Could not launch URL');
+    }
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Could not open the URL: $url')),
     );
   }
+}
 }
